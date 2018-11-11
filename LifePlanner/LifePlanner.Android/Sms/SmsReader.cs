@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Text;
 using Android.App;
 using LifePlanner.Sms;
 
@@ -7,7 +6,7 @@ namespace LifePlanner.Droid.Sms
 {
     public class SmsReader : ISmsReader
     {
-        public IEnumerable<string> ReadSms()
+        public IEnumerable<string> ReadSms() // todo добавить string address
         {
             //var SMS_URI_INBOX = "content://sms/inbox";
             var SMS_URI_ALL = "content://sms/";
@@ -18,37 +17,26 @@ namespace LifePlanner.Droid.Sms
             {
                 if (cur.MoveToFirst())
                 {
-                    var index_Address = cur.GetColumnIndex("address");
-                    var index_Person = cur.GetColumnIndex("person");
-                    var index_Body = cur.GetColumnIndex("body");
-                    var index_Date = cur.GetColumnIndex("date");
-                    var index_Type = cur.GetColumnIndex("type");
+                    var address = cur.GetColumnIndex("address");
+                    var person = cur.GetColumnIndex("person");
+                    var body = cur.GetColumnIndex("body");
+                    var date = cur.GetColumnIndex("date");
+                    var type = cur.GetColumnIndex("type");
                     do
                     {
-                        var smsBuilder = new StringBuilder();
+                        var strAddress = cur.GetString(address);
+                        var intPerson = cur.GetInt(person);
+                        var strbody = cur.GetString(body);
+                        var longDate = cur.GetLong(date);
+                        var int_Type = cur.GetInt(type);
 
-                        var strAddress = cur.GetString(index_Address);
-                        var intPerson = cur.GetInt(index_Person);
-                        var strbody = cur.GetString(index_Body);
-                        var longDate = cur.GetLong(index_Date);
-                        var int_Type = cur.GetInt(index_Type);
-
-                        smsBuilder.Append("[ ");
-                        smsBuilder.Append(strAddress + ", ");
-                        smsBuilder.Append(intPerson + ", ");
-                        smsBuilder.Append(strbody + ", ");
-                        smsBuilder.Append(longDate + ", ");
-                        smsBuilder.Append(int_Type);
-                        smsBuilder.Append(" ]\n\n");
-
-                        yield return smsBuilder.ToString();
+                        yield return $"[ {strAddress}, {intPerson}, {strbody}, {longDate}, {int_Type} ]"; 
+                        // todo Заменить на класс описывающий смс
+                        // todo Так же добавить класс описывающий смс в smsreceiver
+                        // todo И вынести в сборку LifePlanner.Core и интерфейс тоже
 
                     } while (cur.MoveToNext());
                 }
-                else
-                {
-                    yield return "no result!";
-                } // end if
             }
         }
     }
