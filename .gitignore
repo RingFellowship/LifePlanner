@@ -1,0 +1,11 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/LifePlanner/LifePlanner/bin/Debug/netstandard2.0
+/LifePlanner/LifePlanner/obj
+/LifePlanner/LifePlanner.Android/bin/Debug
+/LifePlanner/LifePlanner.Android/obj/.cache
+/LifePlanner/LifePlanner.Android/obj/Debug/MonoAndroid81
+/LifePlanner/LifePlanner.Android/obj
