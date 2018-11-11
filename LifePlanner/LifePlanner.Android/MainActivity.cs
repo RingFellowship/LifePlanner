@@ -7,6 +7,7 @@ using Xamarin.Forms.Platform.Android;
 using Xamarin.Forms;
 using Android;
 using System.Linq;
+using LifePlanner.Droid.Sms;
 
 namespace LifePlanner.Droid
 {
@@ -33,7 +34,7 @@ namespace LifePlanner.Droid
             base.OnCreate(savedInstanceState);
             Forms.Init(this, savedInstanceState);
             TryToGetPermissions();
-            LoadApplication(new App());
+            LoadApplication(new App(new SmsReader()));
         }
 
         private void TryToGetPermissions()

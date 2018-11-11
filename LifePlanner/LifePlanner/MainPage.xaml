@@ -11,6 +11,8 @@
             HorizontalOptions="Center"
             Text="Welcome to Xamarin.Forms!"
             VerticalOptions="CenterAndExpand" />
+        <ListView x:Name="smsList" />
+        <Button Text="Получить смс" Clicked="Button_Clicked"/>
     </StackLayout>
 
 </ContentPage>

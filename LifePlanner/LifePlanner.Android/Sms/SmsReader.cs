@@ -1,13 +1,14 @@
-﻿using System.Text;
+﻿using System.Collections.Generic;
+using System.Text;
 using Android.App;
+using LifePlanner.Sms;
 
 namespace LifePlanner.Droid.Sms
 {
-    public class SmsReader
+    public class SmsReader : ISmsReader
     {
-        public string ReadSms()
+        public IEnumerable<string> ReadSms()
         {
-            var smsBuilder = new StringBuilder();
             //var SMS_URI_INBOX = "content://sms/inbox";
             var SMS_URI_ALL = "content://sms/";
 
@@ -24,6 +25,8 @@ namespace LifePlanner.Droid.Sms
                     var index_Type = cur.GetColumnIndex("type");
                     do
                     {
+                        var smsBuilder = new StringBuilder();
+
                         var strAddress = cur.GetString(index_Address);
                         var intPerson = cur.GetInt(index_Person);
                         var strbody = cur.GetString(index_Body);
@@ -37,15 +40,15 @@ namespace LifePlanner.Droid.Sms
                         smsBuilder.Append(longDate + ", ");
                         smsBuilder.Append(int_Type);
                         smsBuilder.Append(" ]\n\n");
-                    } while (cur.MoveToNext());
 
+                        yield return smsBuilder.ToString();
+
+                    } while (cur.MoveToNext());
                 }
                 else
                 {
-                    smsBuilder.Append("no result!");
-                } // end if   
-
-                return smsBuilder.ToString();
+                    yield return "no result!";
+                } // end if
             }
         }
     }

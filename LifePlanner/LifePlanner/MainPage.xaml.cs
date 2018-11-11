@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LifePlanner.Sms;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,9 +10,17 @@ namespace LifePlanner
 {
     public partial class MainPage : ContentPage
     {
-        public MainPage()
+        private readonly ISmsReader smsReader;
+
+        public MainPage(ISmsReader smsReader)
         {
             InitializeComponent();
+            this.smsReader = smsReader;
+        }
+
+        private void Button_Clicked(object sender, EventArgs e)
+        {
+            smsList.ItemsSource = smsReader.ReadSms();
         }
     }
 }

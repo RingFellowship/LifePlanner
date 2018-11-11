@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LifePlanner.Sms;
+using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -7,11 +8,11 @@ namespace LifePlanner
 {
     public partial class App : Application
     {
-        public App()
+        public App(ISmsReader smsReader)
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            MainPage = new MainPage(smsReader);
         }
 
         protected override void OnStart()
